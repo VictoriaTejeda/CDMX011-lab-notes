@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  background-image: linear-gradient(
+    to right bottom,
+    #ffffff,
+    #fefefe,
+    #fefefe,
+    #fdfdfd,
+    #fcfcfc,
+    #f7f7f8,
+    #f3f3f3,
+    #eeeeef,
+    #e4e5e6,
+    #d9dcde,
+    #cfd3d5,
+    #c4cacb
+  );
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+}
+
