@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactModal from "react-modal";
 import { db } from "../firebaseconfig";
 import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { useAuth } from "../context/Autcontext";
 import close from "../assets/images/close.png";
 
 const customStyles = {
@@ -12,18 +13,21 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    height: "60%",
-    width: "70%",
+    height: "80%",
+    width: "85%",
     backgroundColor: "#ede6d3c0",
     border: "none",
-    boxShadow: "5px 5px 10px black",
+    boxShadow: "0px 10px 10px black",
   },
 };
+
 export const Modal = ({ note, mode, isVisible, hideModal }) => {
   const { id, title, description } = note;
   const [newTitle, setNewTitle] = useState( title);
   const [newDescription, setNewDescription] = useState(description);
   const [isOpen, setIsOpen] = useState(isVisible);
+  const { currentUser } = useAuth();
+
   const closeModal = () => {
     setIsOpen(false);
     hideModal();
@@ -41,20 +45,34 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
   const handleDescriptionChange = (e) => setNewDescription(e.target.value);
 
   const createNote = async () => {
+    const saveUser = currentUser;
     try {
       await addDoc(collection(db, "notes"), {
         title: newTitle,
-        description: newDescription
+        description: newDescription,
+        email: saveUser.email,
+        uid : [
+          saveUser.email,
+          saveUser.uid
+        ],
+        date: new Date()
       });
     } catch (error) {
       console.error(error);
     }
   };
   const editNote = async () => {
+    const saveUser = currentUser;
     try {
       await setDoc(doc(db, "notes", id), {
         title: newTitle,
-        description: newDescription
+        description: newDescription,
+        email: saveUser.email,
+        uid : [
+          saveUser.email,
+          saveUser.uid
+        ],
+        date: new Date()
       });
     } catch (error) {
       console.error(error);

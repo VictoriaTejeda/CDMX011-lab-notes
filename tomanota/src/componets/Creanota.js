@@ -25,7 +25,7 @@ export const Creanota = ({ note }) => {
   return (
     <div className="container-note">
       <div className="note-body">
-        <h4>{title}</h4>
+        <h4 className= "note-title">{title}</h4>
         <p className= "note-description">{description}</p>
       </div>
       <div className="note-btns">

@@ -1,15 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../context/Autcontext";
 import { auth, db } from "../firebaseconfig";
-import { collection, query, onSnapshot } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import { collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
 import { Creanota } from "./Creanota";
 import { Modal } from "./Modal";
 import "./styles/WallNote.css";
 import logo from "../assets/images/logo.png";
 import out from "../assets/images/out.png";
 
-function WallNotes() {
+const WallNotes = () => {
   const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
   const history = useHistory();
@@ -24,24 +26,34 @@ function WallNotes() {
       console.log(error);
     }
   };
-
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    const q = query(collection(db, "notes"));
-    onSnapshot(q, (querySnapshot) => {
-      const documents = [];
-      querySnapshot.forEach((doc) => {
-        documents.push({ id: doc.id, ...doc.data() });
-      });
-      setNotes(documents);
+  const getNote= onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const q = query(
+          collection(db, "notes"),
+          orderBy("date", "desc"),
+          where("email", "==", user.email),
+        );
+        onSnapshot(q, (querySnapshot) => {
+          const documents = [];
+          querySnapshot.forEach((doc) => {
+            documents.push({ id: doc.id, ...doc.data() });
+          });
+          setNotes(documents);
+        });
+      } else {
+        console.log("no hay usuario")
+      }
     });
+    return getNote;
   }, []);
 
-  const [isVisible, setIsVisible]= useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const showModal = () => setIsVisible(true);
   const hideModal = () => setIsVisible(false);
-  const newNote = {autor: '', cite: ''}
+  const newNote = { title: "", description: "" };
 
   return (
     <>
@@ -58,24 +70,36 @@ function WallNotes() {
       </header>
       <div className="container-welcome">
         {error && <p className="error">{error}</p>}
-        <p className= "welcome">Hola {currentUser.email}</p>
+        <p className="welcome">
+          Hola{" "}
+          {currentUser.displayName
+            ? currentUser.displayName
+            : currentUser.email}
+        </p>
         <div>
-          <button className="btn-add" onClick={showModal}> Añade una nota </button>
+          <button className="btn-add" onClick={showModal}>
+            {" "}
+            Añade una nota{" "}
+          </button>
         </div>
       </div>
-      <div>        
-        <div className= "note">
+      <div>
+        <div className="note">
           {notes.map((note) => (
             <Creanota key={note.id} note={note} />
           ))}
         </div>
-        {
-          isVisible &&
-          <Modal mode = 'create' isVisible={isVisible} note={newNote} hideModal={hideModal}  />
-        }
+        {isVisible && (
+          <Modal
+            mode="create"
+            isVisible={isVisible}
+            note={newNote}
+            hideModal={hideModal}
+          />
+        )}
       </div>
     </>
   );
-}
+};
 
 export default WallNotes;
