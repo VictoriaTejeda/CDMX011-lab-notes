@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
 import { db } from "../firebaseconfig";
-import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc,} from "firebase/firestore";
 import { useAuth } from "../context/Autcontext";
 import close from "../assets/images/close.png";
 
@@ -55,7 +55,7 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
           saveUser.email,
           saveUser.uid
         ],
-        date: new Date()
+        date:new Date()
       });
     } catch (error) {
       console.error(error);
@@ -108,12 +108,12 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
           onChange={handleDescriptionChange}
         />
         {mode === "edit" ? 
-          <button type="submit" className="edit-btn">
-            Edita Nota
+          <button type="submit" className="upDate-btn">
+            Actualizar Nota
           </button>
          : 
           <button type="submit" className="create-btn">
-            Crea Nota
+            Crear Nota
           </button>
         }
       </form>

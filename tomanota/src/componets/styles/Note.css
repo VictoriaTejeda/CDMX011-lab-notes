@@ -12,7 +12,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
-  border-style: double;
+  border-style: outset;
   border-color: #e94d57d3;
   border-width: medium;
   background-color: #fffdf9;
@@ -23,6 +23,15 @@
   min-width: 15vw;
   height: 90%;
 }
+.container-note:hover,.container-note:focus{
+  -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+  box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  position:relative;
+}
 
 .note-body {
   display: flex;
@@ -32,26 +41,24 @@
   height: 100%;
   margin: 10px;
   font-family: system-ui;
-  margin-top: 30px;
-  margin-bottom: 15px;
   border-radius: 10px;
 }
 
 .note-title {
-  font-size: 22px;
+  font-size: 2.5vh;
   text-align: center;
   margin-bottom: 10px;
   margin-top: 10px;
   text-align: center;
 }
 .note-description {
-  font-size: 20px;
+  font-size: 2.2vh;
   text-align: justify;
   margin-bottom: 8px;
   margin-top: 5px;
   padding: 20px;
   max-width: 25vw;
-  max-height: 30vh;
+  max-height: 18vh;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -90,4 +97,27 @@
 .delete-btn {
   width: 4vh;
   height: auto;
+}
+
+.btn-success, .btn-danger{
+background-color: #385A64;
+width: 10vh;
+height:4vh;
+border-radius: 2vh ;
+margin: 2vh;
+font-size: 2.2vh;
+font-style: "Overpass Mono", monospace;
+color:#d4d4d4;
+box-shadow:0px 6px 6px rgba(0, 0, 0, 0.651) ;
+}
+
+.btn-danger{
+  background-color: #e94d57d3;
+  color: #333333;
+}
+
+.date{
+ margin: 10px;
+  font-size: 1.8vh;
+  text-align: center;
 }

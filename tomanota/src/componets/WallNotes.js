@@ -9,6 +9,7 @@ import { Creanota } from "./Creanota";
 import { Modal } from "./Modal";
 import "./styles/WallNote.css";
 import logo from "../assets/images/logo.png";
+import logobtn from "../assets/images/logobtn.png";
 import out from "../assets/images/out.png";
 
 const WallNotes = () => {
@@ -79,7 +80,7 @@ const WallNotes = () => {
         <div>
           <button className="btn-add" onClick={showModal}>
             {" "}
-            Añade una nota{" "}
+            <img src={ logobtn } alt="logobtn" className="logo-btn" /> Añade una nota{" "}
           </button>
         </div>
       </div>
