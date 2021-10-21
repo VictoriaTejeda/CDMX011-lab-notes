@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
 import { db } from "../firebaseconfig";
-import { collection, addDoc, doc, setDoc,} from "firebase/firestore";
+import { collection, addDoc, doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../context/Autcontext";
 import close from "../assets/images/close.png";
+import "./styles/Modal.css";
 
 const customStyles = {
   content: {
@@ -15,7 +16,7 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     height: "80%",
     width: "85%",
-    backgroundColor: "#ede6d3c0",
+    backgroundColor: "transparent",
     border: "none",
     boxShadow: "0px 10px 10px black",
   },
@@ -23,7 +24,7 @@ const customStyles = {
 
 export const Modal = ({ note, mode, isVisible, hideModal }) => {
   const { id, title, description } = note;
-  const [newTitle, setNewTitle] = useState( title);
+  const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
   const [isOpen, setIsOpen] = useState(isVisible);
   const { currentUser } = useAuth();
@@ -32,7 +33,7 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
     setIsOpen(false);
     hideModal();
   };
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (mode === "edit") {
       editNote();
@@ -51,11 +52,8 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
         title: newTitle,
         description: newDescription,
         email: saveUser.email,
-        uid : [
-          saveUser.email,
-          saveUser.uid
-        ],
-        date:new Date()
+        //uid: [saveUser.email, saveUser.uid],
+        date: new Date(),
       });
     } catch (error) {
       console.error(error);
@@ -68,11 +66,8 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
         title: newTitle,
         description: newDescription,
         email: saveUser.email,
-        uid : [
-          saveUser.email,
-          saveUser.uid
-        ],
-        date: new Date()
+        //uid: [saveUser.email, saveUser.uid],
+        date: new Date(),
       });
     } catch (error) {
       console.error(error);
@@ -84,39 +79,67 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
       style={customStyles}
       appElement={document.getElementById("root")}
     >
-      <form className="modal" onSubmit={handleSubmit}>
-        <img
-          src={close}
-          alt="close"
-          className="close-btn"
-          onClick={closeModal}
-        />
-        <input
-          type="text"
-          className="title"
-          value={newTitle}
-          placeholder="Título de tu nota"
-          required
-          onChange={handleTitleChange}
-        />
-        <textarea
-          type="text"
-          className="description"
-          value={newDescription}
-          placeholder="Escribe tu nota"
-          required
-          onChange={handleDescriptionChange}
-        />
-        {mode === "edit" ? 
-          <button type="submit" className="upDate-btn">
-            Actualizar Nota
-          </button>
-         : 
-          <button type="submit" className="create-btn">
-            Crear Nota
-          </button>
-        }
-      </form>
+      {mode === "edit" ? (
+        <>
+          <form className="modal-edit" onSubmit={handleSubmit}>
+            <img
+              src={close}
+              alt="close"
+              className="close-btn"
+              onClick={closeModal}
+            />
+            <input
+              type="text"
+              className="title-edit"
+              value={newTitle}
+              placeholder="Título de tu nota"
+              required
+              onChange={handleTitleChange}
+            />
+            <textarea
+              type="text"
+              className="description-edit"
+              value={newDescription}
+              placeholder="Escribe tu nota"
+              required
+              onChange={handleDescriptionChange}
+            />
+            <button type="submit" className="upDate-btn">
+              Actualizar Nota
+            </button>
+          </form>
+        </>
+      ) : (
+        <>
+          <form className="modal" onSubmit={handleSubmit}>
+            <img
+              src={close}
+              alt="close"
+              className="close-btn"
+              onClick={closeModal}
+            />
+            <input
+              type="text"
+              className="title"
+              value={newTitle}
+              placeholder="Título de tu nota"
+              required
+              onChange={handleTitleChange}
+            />
+            <textarea
+              type="text"
+              className="description"
+              value={newDescription}
+              placeholder="Escribe tu nota"
+              required
+              onChange={handleDescriptionChange}
+            />
+            <button type="submit" className="create-btn">
+              Crear Nota
+            </button>
+          </form>
+        </>
+      )}
     </ReactModal>
   );
 };
