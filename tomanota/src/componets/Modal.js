@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
 import { db } from "../firebaseconfig";
-import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
 import { useAuth } from "../context/Autcontext";
+import Swal from "sweetalert2";
 import close from "../assets/images/close.png";
 import "./styles/Modal.css";
 
@@ -52,7 +53,6 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
         title: newTitle,
         description: newDescription,
         email: saveUser.email,
-        //uid: [saveUser.email, saveUser.uid],
         date: new Date(),
       });
     } catch (error) {
@@ -66,13 +66,54 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
         title: newTitle,
         description: newDescription,
         email: saveUser.email,
-        //uid: [saveUser.email, saveUser.uid],
         date: new Date(),
       });
     } catch (error) {
       console.error(error);
     }
   };
+
+  const deleteNote = () => {
+    try {
+      const swalWithButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn-success",
+          cancelButton: "btn-danger",
+        },
+        buttonsStyling: false,
+      });
+
+      swalWithButtons
+        .fire({
+          title: "¿Deseas borrar tu nota?",
+          text: "No podras revertir esto",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Si",
+          cancelButtonText: "No",
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            swalWithButtons.fire(
+              "¡Eliminada!",
+              "La nota ha sido borrada.",
+              "success"
+            );
+            deleteDoc(doc(db, "notes", id));
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithButtons.fire(
+              "Cancelar",
+              "Tu nota se ha guardado :)",
+              "error"
+            );
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ReactModal
       isOpen={isOpen}
@@ -82,12 +123,6 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
       {mode === "edit" ? (
         <>
           <form className="modal-edit" onSubmit={handleSubmit}>
-            <img
-              src={close}
-              alt="close"
-              className="close-btn"
-              onClick={closeModal}
-            />
             <input
               type="text"
               className="title-edit"
@@ -105,9 +140,17 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
               onChange={handleDescriptionChange}
             />
             <button type="submit" className="upDate-btn">
-              Actualizar Nota
+              Actualizar nota
             </button>
           </form>
+          <div className="btn-container">
+            <button className="close-btn" onClick={closeModal}>
+              Cerrar 
+            </button>
+            <button className="delete-btn" onClick={deleteNote}>
+              Eliminar nota
+            </button>
+          </div>
         </>
       ) : (
         <>
@@ -115,7 +158,7 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
             <img
               src={close}
               alt="close"
-              className="close-btn"
+              className="close"
               onClick={closeModal}
             />
             <input

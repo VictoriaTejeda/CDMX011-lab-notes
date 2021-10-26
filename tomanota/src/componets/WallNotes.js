@@ -4,9 +4,16 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../context/Autcontext";
 import { auth, db } from "../firebaseconfig";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  orderBy,
+} from "firebase/firestore";
 import { Creanota } from "./Creanota";
 import { Modal } from "./Modal";
+import Swal from "sweetalert2";
 import "./styles/WallNote.css";
 import logo from "../assets/images/logo.png";
 import logobtn from "../assets/images/logobtn.png";
@@ -17,11 +24,25 @@ const WallNotes = () => {
   const { currentUser, logout } = useAuth();
   const history = useHistory();
 
-  const handleSignOut = async () => {
+  const handleSignOut = () => {
     try {
-      await logout(auth);
-      history.push("/");
-      console.log("no entro");
+      Swal.fire({
+        title: "¿Desea Cerrar sesión?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#385a64",
+        cancelButtonColor: "#e44d57",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        width:"50vh",
+        heightAuto: "true",
+        position:"top-right",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          logout(auth);
+          history.push("/");
+        }
+      });
     } catch (error) {
       setError("Error del servidor");
       console.log(error);
@@ -30,12 +51,12 @@ const WallNotes = () => {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-  const getNote= onAuthStateChanged(auth, (user) => {
+    const getNote = onAuthStateChanged(auth, (user) => {
       if (user) {
         const q = query(
           collection(db, "notes"),
           orderBy("date", "desc"),
-          where("email", "==", user.email),
+          where("email", "==", user.email)
         );
         onSnapshot(q, (querySnapshot) => {
           const documents = [];
@@ -45,7 +66,7 @@ const WallNotes = () => {
           setNotes(documents);
         });
       } else {
-        console.log("no hay usuario")
+        console.log("no hay usuario");
       }
     });
     return getNote;
@@ -80,7 +101,8 @@ const WallNotes = () => {
         <div>
           <button className="btn-add" onClick={showModal}>
             {" "}
-            <img src={ logobtn } alt="logobtn" className="logo-btn" /> Añade una nota{" "}
+            <img src={logobtn} alt="logobtn" className="logo-btn" /> Añade una
+            nota{" "}
           </button>
         </div>
       </div>

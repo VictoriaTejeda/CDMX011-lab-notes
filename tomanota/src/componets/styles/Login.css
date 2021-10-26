@@ -48,7 +48,7 @@
   padding-left: 10px;
 }
 p {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Roboto Mono', monospace;
   font-style: normal;
   font-weight: 700;
   font-size: 2.3vh;
@@ -57,7 +57,7 @@ p {
 }
 
 a {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Roboto Mono', monospace;
   font-size: 18px;
   text-align: center;
   color: #FF4F5A;
