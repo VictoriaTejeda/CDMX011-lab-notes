@@ -27,11 +27,8 @@ const LogIn = () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        console.log(token);
+      .then(() => {
+      
         history.push("/WallNotes");
       })
       .catch((error) => {
@@ -39,11 +36,12 @@ const LogIn = () => {
         console.log(credential);
       });
   };
+  
 
   return (
     <div>
       <section className="container">
-        <div>
+        <div className="homepick">
           <img src={homepick} alt="home-img" className="home-img" />
         </div>
         <div className="container-Form">

@@ -17,7 +17,7 @@ import Swal from "sweetalert2";
 import "./styles/WallNote.css";
 import logo from "../assets/images/logo.png";
 import logobtn from "../assets/images/logobtn.png";
-import out from "../assets/images/out.png";
+import avatar from "../assets/images/avatar.png";
 
 const WallNotes = () => {
   const [error, setError] = useState("");
@@ -76,19 +76,16 @@ const WallNotes = () => {
   const showModal = () => setIsVisible(true);
   const hideModal = () => setIsVisible(false);
   const newNote = { title: "", description: "" };
-
+const userAvatar= currentUser.photoURL;
   return (
     <>
       <header className="headerWall">
         <div>
           <img src={logo} alt="logo-img" className="logonote" />
         </div>
-        <img
-          src={out}
-          alt="logOut"
-          className="log-out"
-          onClick={handleSignOut}
-        />
+        {currentUser.photoURL
+            ? <img src={userAvatar} alt="user-img" className="avatar" onClick={handleSignOut}/>
+            : <img src={avatar} alt="user-img" className="avatar" onClick={handleSignOut} />} 
       </header>
       <div className="container-welcome">
         {error && <p className="error">{error}</p>}

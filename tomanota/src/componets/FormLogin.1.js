@@ -35,7 +35,7 @@ const FormLogin = ({ handleLogin, handleLoginGoogle }) => {
         >
           Inicia Sesión
         </button>
-        <p>-- o --</p>
+        <p className="o">-- o --</p>
         <button className="btn-google" onClick={handleLoginGoogle}>
           Ingresa con{" "}
           <img src={btngoogle} alt="google-img" className="google-img" />

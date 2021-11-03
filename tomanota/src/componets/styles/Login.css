@@ -14,10 +14,9 @@
   height: 40%;
   font-family: "Overpass Mono", monospace;
   font-style: normal;
-  font-weight: bold;
   font-size: 18px;
   text-align: center;
-  color: #000000;
+  color: #fff;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin: 13px auto;
 }
@@ -61,4 +60,14 @@ a {
   font-size: 18px;
   text-align: center;
   color: #FF4F5A;
+}
+@media only screen and (min-device-width: 520px) and (max-device-width: 1025px) and (orientation: portrait) {
+  .o{
+    margin-top: 5px;
+  }
+  .btn-google, .btn-Login{
+    width: 35vw;
+    height: 4.5vh;
+    font-size: 2vh;
+  }
 }

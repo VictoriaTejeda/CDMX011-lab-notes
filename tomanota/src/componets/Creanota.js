@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Modal } from "./Modal";
 import "./styles/Note.css";
 
-
 export const Creanota = ({ note }) => {
   const { title, description, date } = note;
-  const d= date.toDate ( ).toLocaleString();
+  const d = date.toDate().toLocaleString();
   const [isVisible, setIsVisible] = useState(false);
   const showModal = () => setIsVisible(true);
   const hideModal = () => setIsVisible(false);
@@ -13,16 +12,25 @@ export const Creanota = ({ note }) => {
   return (
     <div className="container-note">
       <div className="note-body">
-        <h4 className= "note-title">{title}</h4>
-        <p className= "note-description" onClick={showModal} >{description}</p>
+        <h4 className="note-title">{title}</h4>
+        <p className="note-description">
+          {description}
+        </p>
       </div>
       <div>
-        <p className= "date"> modificado: {d}</p>
+        <button className="learn-more" onClick={showModal}>Leer más...</button>
       </div>
-      {
-          isVisible &&
-            <Modal note={note} mode= 'edit' isVisible={isVisible} hideModal= {hideModal} />
-      }
+      <div>
+        <p className="date"> modificado: {d}</p>
+      </div>
+      {isVisible && (
+        <Modal
+          note={note}
+          mode="edit"
+          isVisible={isVisible}
+          hideModal={hideModal}
+        />
+      )}
     </div>
   );
 };

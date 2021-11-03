@@ -6,7 +6,6 @@ import LogIn from "../componets/LogIn";
 import FormLogin from "../componets/FormLogin.1";
 
 afterEach(cleanup);
-// beforeEach(()=> render (<Router><AuthProvider><Switch><Route component={LogIn}/></Switch></AuthProvider></Router>))
 
 test("sobre el componente FormLogin", () => {
   const mockHandleLogin = jest.fn();

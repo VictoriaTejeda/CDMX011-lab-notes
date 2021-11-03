@@ -42,6 +42,9 @@
   display: block;
 }
 
+.container-note:hover .learn-more{
+  display: block;
+}
 .container-note:nth-child(2n+1){
   border-color:#385a64;
 }
@@ -102,6 +105,25 @@
   background-color: #e94d57d3;
   color: #333333;
 }
+
+.learn-more{
+  font-family:'Roboto Mono', monospace ;
+  font-size: 2vh;
+  letter-spacing: 0;
+  border-top: 1px solid (#333333, 0);
+  border: transparent;
+  background: transparent;
+  display: none;
+}
+
+
+.learn-more:hover {
+  border-top-color: #385a64;
+  border-radius:1vh;
+  letter-spacing: 5px;
+
+}
+
 
 .date {
   margin: 10px;

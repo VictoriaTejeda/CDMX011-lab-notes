@@ -15,9 +15,9 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    height: "80%",
+    height: "90%",
     width: "85%",
-    backgroundColor: "transparent",
+    backgroundColor:"#fffdf9",
     border: "none",
     boxShadow: "0px 10px 10px black",
   },
@@ -139,6 +139,7 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
               required
               onChange={handleDescriptionChange}
             />
+            
             <button type="submit" className="upDate-btn">
               Actualizar nota
             </button>
