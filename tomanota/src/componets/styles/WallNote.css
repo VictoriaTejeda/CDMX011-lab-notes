@@ -1,6 +1,87 @@
-.notes{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    width: 100%;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@300&display=swap");
+.notes {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: flex-start;
+  width: 100%;
 }
+
+.headerWall {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-around;
+  align-items: center;
+  background-image: linear-gradient(
+    to top,
+    rgba(245, 239, 239, 0.993),
+    #caccd2,
+    #9ea6b0f8,
+    #71838e,
+    #193b46e5
+  );
+  width: 100%;
+  
+}
+
+.logonote {
+  width: 50%;
+  height: 50%;
+  margin-top: 1.2vh;
+}
+.log-out {
+  width: 40px;
+  height: 45px;
+  color-adjust: #385a64;
+}
+
+.container-welcome {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  width: 100%;
+}
+.btn-add {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  background: transparent;
+  border-color: #385A64;
+  border-width: 2px;
+  font-size: 2.5vh;
+  font-family: "Overpass Mono", monospace;
+  width: 40vw;
+    height: 5vh;
+  box-shadow: 9px 10px 4px rgb(0 0 0 / 77%);
+  border-radius: 10px;
+  margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+}
+
+.btn-add:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(10px);
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.logo-btn{
+  width: 40px;
+  height: 40px;
+}
+
+.welcome {
+  font-size: 2.4vh;
+  font-family: 'Roboto Mono', monospace;
+  margin-top: 2vh;
+}
+
+.avatar{
+  height: 70px;
+  width: 70px;
+  background-color: black;
+  border-radius: 50px;
+  align-self: center;
+}
+

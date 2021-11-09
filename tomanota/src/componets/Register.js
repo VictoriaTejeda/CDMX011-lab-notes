@@ -1,66 +1,50 @@
-import React, { Fragment, useState } from 'react';
-import homepick from '../assets/images/homepick.png';
-import logo from '../assets/images/logo.png';
-import  './styles/Register.css'
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { useAuth } from "../context/Autcontext";
+import  FormRegister from "./FormRegister"
+import homepick from "../assets/images/homepick.png";
+import logo from "../assets/images/logo.png";
+import "./styles/Register.css";
 
-const Register = ({ handleLogin }) => {
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const [name, setName] = useState('');
+const Register = () => {
+  const { signUp } = useAuth();
+  const [error, setError] = useState("");
+  const [confirmpass, setConfirmPass] = useState("");
+  const history = useHistory();
+  const handleConfirmPass = (e) => setConfirmPass(e.target.value);
+ 
+
+  const handleSignUP = async (password, email) => {
+    if (password !== confirmpass) {
+      console.log(password, confirmpass, 'jajajja');
+      setError("la contraseña no coincide");
+      setTimeout(() => setError(""),10000);
+
+    } else {
+      try {
+        await signUp(email, password);
+        history.push("/WallNotes");
+      } catch (error) {
+        setError("Credenciales incorrectas");
+        setTimeout(() => setError(""), 1500);
+      }
+    }
+  };
 
   return (
-    <section className='container'>
-      <div>
-        <img src={homepick} alt='home-img' className='home-img'/>
+    <section className="container">
+      <div className="homepick">
+        <img src={homepick} alt="home-img" className="home-img" />
       </div>
-      <div className='container-Form'>
-      <div>
-        <img src={logo} alt='logo-img' className='logo' />
-      </div>
-      <Fragment>
-        <form className='form'>
-          <div className='frame'>
-            <label>Nombre de usuario</label>
-            <input
-              type='text'
-              placeholder='Por ejemplo, Victoria'
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-            />
-            <label>Correo</label>
-            <input className='mail'
-              type='text'
-              placeholder='Por ejemplo, correo@mail.com'
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            />
-            <label>Contraseña</label>
-            <input
-              type='password'
-              onChange={(e) => {
-                setPass(e.target.value);
-              }}
-            />
-            <label>Confirma tu contraseña</label>
-            <input
-              type='password'
-              onChange={(e) => {
-                setPass(e.target.value);
-              }}
-            />
-            <button className= 'btn-resgister'
-              onClick={(e) => {
-                e.preventDefault();
-                handleLogin(email, pass);
-              }}
-            >
-              Registrate
-            </button>
-          </div>
-        </form>
-      </Fragment>
+      <div className="container-Form">
+        <div>
+          <img src={logo} alt="logo-img" className="logo" />
+          {error && <p className="error">{error}</p>}
+        </div>
+        <FormRegister handleConfirmPass= {handleConfirmPass} handleSignUP = {handleSignUP}/>
+        <p>
+          Ya estas registrado <Link to="/">inicia Sesión</Link>{" "}
+        </p>
       </div>
     </section>
   );
