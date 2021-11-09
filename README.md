@@ -51,16 +51,11 @@ El proyecto contine  los siguientes archivos base de configuración.
 
 ## 3. Feedback recibido
 
-### Foto del primer prototipo en papel 
-![prototipo de Baja fidelidad]()
-
-* El squat sugirio colocar un botón de reset.
-* Sugirieron que añadiera un texto donde apareciera es valida o invalida ya que yo solo lo tenia con iconos y no era muy entendible para el usuario. Asi como tambien probar que la pagina tuviera un html responsive, e implementar el uso de una paleta de colores.
 
  ### Foto del prototipo final.
-![prototipo de Baja fidelidad]()
+![prototipo de Baja fidelidad](https://github.com/VictoriaTejeda/CDMX011-lab-notes/blob/main/tomanota/src/assets/images/prototipo%20figma.PNG)
 
-
+Se hicierón iteraciones a través de los test de usabilidad, se colocó un modal, y se agregó más diseño a las notas dependiendo de los sugerido por los usuarios.
 ## 5. Plan de acción
 
 Se realizo a través del uso de historias de Usuario, para entregar minimos viables y funcionales, en cada sprint.
