@@ -24,12 +24,11 @@ const customStyles = {
 };
 
 export const Modal = ({ note, mode, isVisible, hideModal }) => {
-  const { id, title, description } = note;
+  const { id, title, description, date } = note;
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
   const [isOpen, setIsOpen] = useState(isVisible);
   const { currentUser } = useAuth();
-
   const closeModal = () => {
     setIsOpen(false);
     hideModal();
@@ -113,6 +112,8 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
       console.log(error);
     }
   };
+  
+  
 
   return (
     <ReactModal
@@ -122,7 +123,7 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
     >
       {mode === "edit" ? (
         <>
-          <form className="modal-edit" onSubmit={handleSubmit}>
+          <form className="modal-edit" >
             <input
               type="text"
               className="title-edit"
@@ -138,16 +139,15 @@ export const Modal = ({ note, mode, isVisible, hideModal }) => {
               placeholder="Escribe tu nota"
               required
               onChange={handleDescriptionChange}
+              onKeyUp={editNote}
             />
-            
-            <button type="submit" className="upDate-btn">
-              Actualizar nota
-            </button>
+            <label>Última edición: {date.toDate().toLocaleString()}</label>
           </form>
           <div className="btn-container">
             <button className="close-btn" onClick={closeModal}>
               Cerrar 
             </button>
+            
             <button className="delete-btn" onClick={deleteNote}>
               Eliminar nota
             </button>

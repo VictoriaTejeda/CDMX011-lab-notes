@@ -34,9 +34,9 @@ const WallNotes = () => {
         cancelButtonColor: "#e44d57",
         confirmButtonText: "Si",
         cancelButtonText: "No",
-        width:"50vh",
+        width: "50vh",
         heightAuto: "true",
-        position:"top-right",
+        position: "top-right",
       }).then((result) => {
         if (result.isConfirmed) {
           logout(auth);
@@ -76,16 +76,29 @@ const WallNotes = () => {
   const showModal = () => setIsVisible(true);
   const hideModal = () => setIsVisible(false);
   const newNote = { title: "", description: "" };
-const userAvatar= currentUser.photoURL;
+  const userAvatar = currentUser.photoURL;
+
   return (
     <>
       <header className="headerWall">
         <div>
           <img src={logo} alt="logo-img" className="logonote" />
         </div>
-        {currentUser.photoURL
-            ? <img src={userAvatar} alt="user-img" className="avatar" onClick={handleSignOut}/>
-            : <img src={avatar} alt="user-img" className="avatar" onClick={handleSignOut} />} 
+        {currentUser.photoURL ? (
+          <img
+            src={userAvatar}
+            alt="user-img"
+            className="avatar"
+            onClick={handleSignOut}
+          />
+        ) : (
+          <img
+            src={avatar}
+            alt="user-img"
+            className="avatar"
+            onClick={handleSignOut}
+          />
+        )}
       </header>
       <div className="container-welcome">
         {error && <p className="error">{error}</p>}
